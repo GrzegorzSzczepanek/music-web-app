@@ -1,0 +1,17 @@
+/* src/components/specific/Home.module.css */
+.container {
+    padding: 20px;
+    text-align: center;
+
+  }
+  
+  .title {
+    font-size: 2em;
+    color: #333;
+  }
+  
+  .content {
+    font-size: 1.2em;
+    color: #666;
+  }
+  

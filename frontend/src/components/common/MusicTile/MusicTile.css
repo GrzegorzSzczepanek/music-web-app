@@ -1,0 +1,83 @@
+.tile {
+  background-color: #2c0a45;
+  border-radius: 8px;
+  margin: 16px;
+  text-align: center;
+  width: 300px;
+  overflow: hidden;
+  color: white;
+}
+
+.image-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.image {
+  width: 100%;
+  transition: filter 0.3s, opacity 0.3s;
+}
+.image-container:hover .image {
+  filter: blur(1px);
+  opacity: 0.9;
+}
+
+
+.button-section {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 32px); /* Adjust the width to accommodate padding */
+}
+
+.right-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.song-option-button {
+  background-color: #1db954;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: filter 0.3s, opacity 0.3s;
+}
+
+.song-option-button:hover {
+  background-color: #1ed760;
+}
+
+.bottom-text {
+  padding: 16px;
+}
+
+.title {
+  font-size: 1.5em;
+  margin: 0px;
+  transition: ease 0.3s;
+}
+
+.artist {
+  font-size: 1.2em;
+  margin: 0px;
+}
+
+.image:hover {
+  filter: blur(1px);
+  opacity: 0.9;
+}
+
+.hover-show {
+  display: none;
+}
+.image-container:hover .hover-show {
+  display: block;
+}

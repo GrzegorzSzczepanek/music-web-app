@@ -1,10 +1,18 @@
 /* src/components/specific/Home.module.css */
 .container {
-    padding: 20px;
-    text-align: center;
-
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    width: 100%;
   }
-  
+  .leftSide, .rightSide {
+    
+  }
+  .leftSide {
+    background-color: #666;
+  }
+  .rightSide {
+    background-color: #999;
+  }
   .title {
     font-size: 2em;
     color: #333;

@@ -1,0 +1,28 @@
+#main-header {
+    background-color: #282c34;
+    width: 400px;
+    height: 100%;
+    /* min-height: 60px; */
+  }
+  
+  #main-header nav  {
+    font-size: 24px;
+    color: white;
+    list-style: none;
+    /* padding: 0 20px; */
+  }
+  #main-header nav ul {
+    align-items: center;
+    justify-content: right;
+    list-style: none;
+    padding: 0;
+  }
+  #main-header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+    height: 100%;
+  }
+  #main-header nav a:hover {
+    background-color: #333;
+  }

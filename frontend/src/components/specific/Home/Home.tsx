@@ -3,22 +3,33 @@ import React from 'react';
 import styles from './Home.module.css';
 import MusicTile from '../../common/MusicTile/MusicTile';
 import PlaylistSideBar from '../../common/PlaylistSideBar/PlaylistSideBar';
+import OptionPopup from '../../common/OptionPopup/OptionPopup';
 
 const Home: React.FC = () => {
+
+  const musicItems = [
+    { title: 'Song Title 1', artist: 'Artist Name 1', imageSrc: 'https://picsum.photos/200' },
+    { title: 'Song Title 2', artist: 'Artist Name 2', imageSrc: 'https://picsum.photos/200' },
+    { title: 'Song Title 3', artist: 'Artist Name 3', imageSrc: 'https://picsum.photos/200' },
+    // Add more items as needed
+  ];
+
   return (
     <div className={styles.container}>
-      <div className={styles.leftSide}>
-        <h1 className={styles.title}>Welcome to the Home Page</h1>
-        <p className={styles.content}>This is the home page content.</p>
-        <MusicTile
-          title='Song Title'
-          artist='Artist Name'
-          imageSrc='https://picsum.photos/200'
-        />
-      </div>
-      <div className={styles.rightSide}>
-        <PlaylistSideBar playlistId={1} />
-      </div>
+    <div className={styles.tiles}>
+        {musicItems.map((item, index) => (
+          
+            <MusicTile
+              key={index}
+              title={item.title}
+              artist={item.artist}
+              imageSrc={item.imageSrc}
+            />
+          
+          
+        ))}
+    </div>
+
     
   </div>
   );

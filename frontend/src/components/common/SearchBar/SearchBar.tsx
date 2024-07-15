@@ -26,9 +26,9 @@ const SearchBar = () => {
             ) : (
               
             <div className='side-stuff'>
-            <a href="/login" className="login">Login</a>
-            <a href="/register" className="register">Register</a>
-        </div>  
+                <a href="/login" className="login">Login</a>
+                <a href="/register" className="register">Register</a>
+            </div>  
             )}
 
         </div>

@@ -1,0 +1,38 @@
+/* MainLayout.module.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mainContainer {
+  display: grid;
+  height: 100vh;
+  grid-template-areas:
+    "navbar searchbar searchbar"
+    "navbar main playlistBar"
+    "footer footer footer";
+  grid-template-columns: 230px 1fr 200px;
+  grid-template-rows: 50px 1fr 100px;
+}
+
+.navbar {
+  grid-area: navbar;
+}
+
+.searchbar {
+  grid-area: searchbar;
+}
+
+.playlistBar {
+  grid-area: playlistBar;
+}
+
+.main {
+  grid-area: main;
+  overflow-y: auto; /* Ensures content can scroll if needed */
+}
+
+.footer {
+  grid-area: footer;
+}

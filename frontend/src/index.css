@@ -7,25 +7,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-
-
-
-footer {
-  background-color: #282c34;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 
 .song-option-button {

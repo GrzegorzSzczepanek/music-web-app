@@ -3,6 +3,7 @@
     background-color: wheat;
     height: 50px;
     display: flex;
+    justify-content: space-between;
 }
 .search-form {
     display: flex;
@@ -31,12 +32,11 @@
     outline: none;
 }
 .side-stuff {
-    width: 30%;
+    width: 200px;
     display: flex;
     justify-content: right;
     align-items: center;
     gap: 10px;
-    margin-right: 30px;
 }
 .side-stuff a {
     text-decoration: none;

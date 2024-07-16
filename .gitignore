@@ -30,3 +30,12 @@ yarn-error.log*
 
 /venv
 /instance
+__pycache__
+
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+
+/instance

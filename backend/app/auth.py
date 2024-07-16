@@ -1,10 +1,10 @@
 # backend/app/auth.py
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, make_response
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import login_user, login_required, logout_user
 from .models import User
-from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
-from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
@@ -17,14 +17,18 @@ def login():
     user = User.query.filter_by(email=email).first()
     if user and check_password_hash(user.password, password):
         login_user(user, remember=True)
-        return jsonify({'success': True, 'message': 'Logged in successfully!'}), 200
+        response = make_response(jsonify({'success': True, 'message': 'Logged in successfully!'}), 200)
+        response.set_cookie('session', 'your_session_token', httponly=True, secure=True)  # Secure and HttpOnly cookie
+        return response
     return jsonify({'success': False, 'message': 'Invalid email or password.'}), 401
 
 @auth.route('/logout', methods=['POST'])
 @login_required
 def logout():
     logout_user()
-    return jsonify({'success': True, 'message': 'Logged out successfully!'}), 200
+    response = make_response(jsonify({'success': True, 'message': 'Logged out successfully!'}), 200)
+    response.set_cookie('session', '', expires=0)  # Clear the cookie
+    return response
 
 @auth.route('/sign-up', methods=['POST'])
 def sign_up():
@@ -33,9 +37,6 @@ def sign_up():
     username = data.get('username')
     password1 = data.get('password1')
     password2 = data.get('password2')
-    
-    print("\n\n\n\n\n")
-    print(email, username, password1, password2)
 
     if User.query.filter_by(email=email).first():
         return jsonify({'success': False, 'message': 'Email already exists.'}), 400

@@ -1,7 +1,5 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-/node_modules
+frontend/node_modules
 /.pnp
 .pnp.js
 
@@ -28,14 +26,10 @@ yarn-error.log*
 .env.build
 .vercel
 
-/venv
-/instance
-__pycache__
-
 # Virtual environment
-venv/
+/venv
 
 # Python cache
-__pycache__/
+__pycache__
 
 /instance

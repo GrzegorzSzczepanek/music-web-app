@@ -1,36 +1,43 @@
-// src/components/SearchBar.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from '../../../AuthProvider'; // Correct import path
+import { fetchSongs } from '../../../services/api'; // Ensure this is the correct path to your API service
 import './SearchBar.css';
 
-const SearchBar = () => {
-    const { isLoggedIn, logout } = useAuth();
-
-    return (
-        <div className="search-bar">
-            <form action="#" className='search-form'>
-                <a className='searchBtn'>
-                    <FontAwesomeIcon icon={faSearch} />
-                </a>
-                <input className='search-box' type="text" placeholder="Search" />
-            </form>
-            {isLoggedIn ? (
-                <div className='side-stuff'>
-                    <div>Notification Icon</div>
-                    <div>Profile Name</div>
-                    <div>User Icon</div>
-                    <button onClick={logout} className="logout-button">Logout</button>
-                </div>
-            ) : (
-                <div className='side-stuff'>
-                    <a href="/login" className="login">Login</a>
-                    <a href="/sign-up" className="register">Register</a>
-                </div>
-            )}
-        </div>
-    );
+interface SearchBarProps {
+  onSearch: (results: any[]) => void;
 }
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+
+  const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const query = event.currentTarget.search.value.toLowerCase();
+    const songs = await fetchSongs();
+    const filteredSongs = songs.filter((song: any) =>
+      song.title.toLowerCase().includes(query)
+    );
+    setSearchResults(filteredSongs);
+    onSearch(filteredSongs); // Pass results to parent
+    console.log(searchResults[0]);
+  };
+
+  return (
+    <div className="search-bar">
+      <form onSubmit={handleSearch} className="search-form">
+        <button type="submit" className="searchBtn">
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
+        <input
+          type="search"
+          className="search-box"
+          placeholder="Search"
+          name="search"
+        />
+      </form>
+    </div>
+  );
+};
 
 export default SearchBar;

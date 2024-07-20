@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faEllipsisH, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { useState, useEffect } from 'react';
 import './MusicTile.css';
 import PopUpMenu from '../OptionPopup/OptionPopup';
 
@@ -9,24 +8,18 @@ interface MusicTileProps {
   title: string;
   artist: string;
   imageSrc: string;
+  song_link: string;
+  setCurrentSongLink: React.Dispatch<React.SetStateAction<string>>;
 }
 
-
-
-const MusicTile: React.FC<MusicTileProps> = ({ title, artist, imageSrc }) => {
+const MusicTile: React.FC<MusicTileProps> = ({ title, artist, imageSrc, song_link, setCurrentSongLink }) => {
   const [showPopup, setShowPopup] = useState(false);
+  console.log(song_link);
 
-  document.addEventListener('click', (e) => {
-    const popups = document.querySelectorAll('.hover-show');
-    popups.forEach((popup) => {
-      if (!popup.contains(e.target as Node)) {
-        const dropdowns = document.querySelectorAll('.drop-down');
-        dropdowns.forEach((dropdown) => {
-          dropdown.classList.remove('show');
-        });
-      }
-    });
-  });
+  const playSong = () => {
+    console.log(song_link);
+    setCurrentSongLink(song_link);
+  }
 
   return (
     <div className="tile">
@@ -37,7 +30,7 @@ const MusicTile: React.FC<MusicTileProps> = ({ title, artist, imageSrc }) => {
           className="image"
         />
         <div className="button-section">
-          <button id="play" className="song-option-button">
+          <button id="play" onClick={playSong} className="song-option-button">
             <FontAwesomeIcon icon={faPlay} />
           </button>
           <div className="right-buttons">
@@ -58,6 +51,5 @@ const MusicTile: React.FC<MusicTileProps> = ({ title, artist, imageSrc }) => {
     </div>
   );
 };
-
 
 export default MusicTile;

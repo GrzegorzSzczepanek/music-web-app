@@ -23,7 +23,7 @@ class Song(db.Model):
     release_date = db.Column(db.String(100))
     genre = db.Column(db.String(100))
     artist_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    yt_link = db.Column(db.String(100))
+    link = db.Column(db.String(100))
     
 # Association table
 playlist_song = db.Table('playlist_song',

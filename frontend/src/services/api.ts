@@ -5,6 +5,11 @@ export const fetchItems = async () => {
   return response.json();
 };
 
+export const fetchSongs = async () => {
+  const response = await fetch(`${API_URL}/music`);
+  return response.json();
+}
+
 // export const fetchWithAuth = async (url: string, options = {}) => {
 //   const token = localStorage.getItem('token');
 //   const headers = {

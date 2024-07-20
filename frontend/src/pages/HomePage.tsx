@@ -1,21 +1,15 @@
-// src/pages/HomePage.tsx
-import React from 'react';
-import Home from '../components/specific/Home/Home';
+import React, { useState } from 'react';
 import MainLayout from '../components/layout/MainLayout';
+import Home from '../components/specific/Home/Home';
 
 const HomePage: React.FC = () => {
-  
-  const MainContainer = {
-    maxHeight: '100vh',
-  }
-  
-  return (
-    <div style={MainContainer}>
-      
-      <MainLayout>
-        <Home />
-      </MainLayout>
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
+  return (
+    <div>
+      <MainLayout>
+        <Home searchResults={searchResults} />
+      </MainLayout>
     </div>
   );
 };

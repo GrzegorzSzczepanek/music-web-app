@@ -1,37 +1,52 @@
-// src/components/specific/Home/Home.tsx
 import React from 'react';
-import styles from './Home.module.css';
 import MusicTile from '../../common/MusicTile/MusicTile';
-import PlaylistSideBar from '../../common/PlaylistSideBar/PlaylistSideBar';
-import OptionPopup from '../../common/OptionPopup/OptionPopup';
+import styles from './Home.module.css';
 
-const Home: React.FC = () => {
+interface Song {
+  title: string;
+  artist: string;
+  album: string;
+  image: string;
+  release_date: string;
+  genre: string;
+  artist_id: number;
+  url: string;
+}
 
-  const musicItems = [
-    { title: 'Song Title 1', artist: 'Artist Name 1', imageSrc: 'https://picsum.photos/200' },
-    { title: 'Song Title 2', artist: 'Artist Name 2', imageSrc: 'https://picsum.photos/200' },
-    { title: 'Song Title 3', artist: 'Artist Name 3', imageSrc: 'https://picsum.photos/200' },
-    // Add more items as needed
-  ];
+interface HomeProps {
+  searchResults: Song[];
+  setCurrentSongLink: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSongLink }) => {
+  const initialContent = (
+    <div>
+      <h1>Welcome to the Music App</h1>
+      <p>Use the search bar above to find your favorite songs!</p>
+      {/* You can add more initial content here */}
+    </div>
+  );
+  console.log(searchResults);
 
   return (
     <div className={styles.container}>
-    <div className={styles.tiles}>
-        {musicItems.map((item, index) => (
-          
+      <div className={styles.titles}>
+        {searchResults && searchResults.length > 0 ? (
+          searchResults.map((song, index) => (
             <MusicTile
               key={index}
-              title={item.title}
-              artist={item.artist}
-              imageSrc={item.imageSrc}
+              title={song.title}
+              artist={song.artist}
+              imageSrc={song.image}
+              song_link={song.url}
+              setCurrentSongLink={setCurrentSongLink} // Pass the function here
             />
-          
-          
-        ))}
+          ))
+        ) : (
+          initialContent
+        )}
+      </div>
     </div>
-
-    
-  </div>
   );
 };
 

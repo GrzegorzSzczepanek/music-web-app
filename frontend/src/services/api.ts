@@ -10,6 +10,12 @@ export const fetchSongs = async () => {
   return response.json();
 }
 
+export const fetchNewReleases = async () => {
+  const response = await fetch(`${API_URL}/new-releases`);
+  return response.json();
+}
+
+
 // export const fetchWithAuth = async (url: string, options = {}) => {
 //   const token = localStorage.getItem('token');
 //   const headers = {

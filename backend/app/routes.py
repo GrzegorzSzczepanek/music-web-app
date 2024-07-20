@@ -37,16 +37,31 @@ def get_music():
         # Log the exception message
         print(f"Error occurred: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
+    
+
+@main.route('/api/new-releases', methods=['GET'])
+def get_new_releases():
+    try:
+        songs = Song.query.order_by(Song.release_date.desc()).limit(10).all()
+        songs_list = [
+            {
+                'id': song.id,
+                'title': song.title,
+                'artist': song.artist,
+                'album': song.album,
+                'image': song.album_image,
+                'release_date': song.release_date,
+                'target': song.artist_id,
+                'url': song.link
+            }
+            for song in songs
+        ]
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
+    return jsonify(songs_list)
 
 @main.route('/api/data', methods=['GET'])
 def get_data():
     return jsonify({'message': 'Hello from Flask!'})
 
-@main.route('/api/items', methods=['GET'])
-def get_items():
-    items = [
-        {'id': 1, 'name': 'Jan'},
-        {'id': 2, 'name': 'paweł'},
-        {'id': 3, 'name': 'drugi'}
-    ]
-    return jsonify(items)

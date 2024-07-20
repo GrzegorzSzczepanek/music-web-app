@@ -15,10 +15,10 @@ interface Song {
 
 interface HomeProps {
   searchResults: Song[];
-  setCurrentSongLink: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSongLink }) => {
+const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSong }) => {
   const initialContent = (
     <div>
       <h1>Welcome to the Music App</h1>
@@ -26,7 +26,6 @@ const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSongLink }) => {
       {/* You can add more initial content here */}
     </div>
   );
-  console.log(searchResults);
 
   return (
     <div className={styles.container}>
@@ -34,12 +33,8 @@ const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSongLink }) => {
         {searchResults && searchResults.length > 0 ? (
           searchResults.map((song, index) => (
             <MusicTile
-              key={index}
-              title={song.title}
-              artist={song.artist}
-              imageSrc={song.image}
-              song_link={song.url}
-              setCurrentSongLink={setCurrentSongLink} // Pass the function here
+              song={song}
+              setCurrentSong={setCurrentSong}
             />
           ))
         ) : (

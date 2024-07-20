@@ -5,28 +5,32 @@ import './MusicTile.css';
 import PopUpMenu from '../OptionPopup/OptionPopup';
 
 interface MusicTileProps {
-  title: string;
-  artist: string;
-  imageSrc: string;
-  song_link: string;
-  setCurrentSongLink: React.Dispatch<React.SetStateAction<string>>;
+  song: {
+    title: string;
+    artist: string;
+    image: string;
+    url: string;
+    release_date: string;
+    // id: number;
+  };
+  setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const MusicTile: React.FC<MusicTileProps> = ({ title, artist, imageSrc, song_link, setCurrentSongLink }) => {
+const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong }) => {
   const [showPopup, setShowPopup] = useState(false);
-  console.log(song_link);
+
+  console.log(song);
 
   const playSong = () => {
-    console.log(song_link);
-    setCurrentSongLink(song_link);
+    setCurrentSong(song);
   }
 
   return (
     <div className="tile">
       <div className="image-container">
         <img
-          src={imageSrc}
-          alt={title}
+          src={song.image}
+          alt={song.title}
           className="image"
         />
         <div className="button-section">
@@ -45,8 +49,8 @@ const MusicTile: React.FC<MusicTileProps> = ({ title, artist, imageSrc, song_lin
         </div>
       </div>
       <div className="bottom-text">
-        <h3 className="title">{title}</h3>
-        <p className="artist">{artist}</p>
+        <h3 className="title">{song.title}</h3>
+        <p className="artist">{song.artist}</p>
       </div>
     </div>
   );

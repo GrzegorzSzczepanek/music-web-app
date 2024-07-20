@@ -13,7 +13,14 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [currentSongLink, setCurrentSongLink] = useState<string>("");
+  const [currentSong, setCurrentSong] = useState<any>({
+    title: 'Placeholder Song 1',
+    artist: 'Artist 1',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    image: 'https://picsum.photos/200/300?random=1',
+    release_date: '2020-01-01',
+    id: 1,
+  })
 
   return (
     <div className={styles.mainContainer}>
@@ -27,13 +34,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <SearchBarSideStuff />
       </div>
       <main className={styles.main}>
-        {React.cloneElement(children as React.ReactElement<any>, { searchResults, setCurrentSongLink })}
+        {React.cloneElement(children as React.ReactElement<any>, { searchResults, setCurrentSong })}
       </main>
       <aside className={styles.sidebar}>
         <PlaylistSideBar playlistId={1} />
       </aside>
       <div className={styles.footer}>
-        <Player currentSongLink={currentSongLink} />
+        {/* {console.log(currentSong)} */}
+        <Player currentSong={currentSong} />
       </div>
     </div>
   );

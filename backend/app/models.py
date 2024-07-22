@@ -2,11 +2,19 @@ from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from . import db
 
+# Association table
+liked_songs = db.Table('liked_songs',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('song_id', db.Integer, db.ForeignKey('song.id'), primary_key=True)
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
+    liked_songs = db.relationship('Song', secondary=liked_songs, lazy='subquery',
+                                  backref=db.backref('liked_by', lazy=True))
     
 class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)

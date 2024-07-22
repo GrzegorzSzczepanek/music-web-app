@@ -2,28 +2,37 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faEllipsisH, faHeart } from '@fortawesome/free-solid-svg-icons';
 import './MusicTile.css';
+import { likeSong } from '../../../services/api';
 import PopUpMenu from '../OptionPopup/OptionPopup';
 
 interface MusicTileProps {
   song: {
     title: string;
     artist: string;
+    artist_id: number;
     image: string;
     url: string;
     release_date: string;
-    // id: number;
+    id: number;
   };
-  setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentSong: any;
 }
 
 const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong }) => {
   const [showPopup, setShowPopup] = useState(false);
 
-  console.log(song);
-
   const playSong = () => {
     setCurrentSong(song);
-  }
+  };
+
+  const handleFavorite = async () => {
+    try {
+      console.log('song', song);
+      const response = await likeSong(song.id);
+    } catch (error) {
+      console.error("Error fetching current user:", error);
+    }
+  };
 
   return (
     <div className="tile">
@@ -41,8 +50,8 @@ const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong }) => {
             <button id="more-options" className="song-option-button hover-show" onClick={() => setShowPopup(!showPopup)}>
               <FontAwesomeIcon icon={faEllipsisH} />
             </button>
-            {showPopup && PopUpMenu()}
-            <button id="favorite" className="song-option-button hover-show">
+            {showPopup && <PopUpMenu />}
+            <button id="favorite" onClick={handleFavorite} className="song-option-button hover-show">
               <FontAwesomeIcon icon={faHeart} />
             </button>
           </div>

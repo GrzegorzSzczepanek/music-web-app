@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MusicTile from '../../common/MusicTile/MusicTile';
 import styles from './Home.module.css';
+import { fetchNewReleases } from '../../../services/api';
+import NewReleases from '../NewReleases/NewReleases';
 
 interface Song {
   title: string;
@@ -18,14 +20,14 @@ interface HomeProps {
   setCurrentSong: React.Dispatch<React.SetStateAction<string>>;
 }
 
+interface NewReleasesProps {
+  newReleases: Song[];
+  setCurrentSong: any;
+}
+
+
 const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSong }) => {
-  const initialContent = (
-    <div>
-      <h1>Welcome to the Music App</h1>
-      <p>Use the search bar above to find your favorite songs!</p>
-      {/* You can add more initial content here */}
-    </div>
-  );
+
 
   return (
     <div className={styles.container}>
@@ -38,7 +40,8 @@ const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSong }) => {
             />
           ))
         ) : (
-          initialContent
+          <NewReleases setCurrentSong={setCurrentSong} />
+          
         )}
       </div>
     </div>

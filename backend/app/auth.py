@@ -2,8 +2,8 @@
 
 from flask import Blueprint, request, jsonify, make_response
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import login_user, login_required, logout_user
-from .models import User
+from flask_login import login_user, login_required, logout_user, current_user
+from .models import User, Song
 from . import db
 
 auth = Blueprint('auth', __name__)

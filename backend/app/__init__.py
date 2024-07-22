@@ -9,6 +9,7 @@ from flask_cors import CORS
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
+
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
@@ -16,7 +17,7 @@ def create_app():
     db.init_app(app)
 
     # Enable CORS for the app
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     from .auth import auth
 

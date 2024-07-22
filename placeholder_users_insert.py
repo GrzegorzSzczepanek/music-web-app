@@ -9,7 +9,7 @@ placeholder_users = [
     {
         "email": "artist1@example.com",
         "username": "artist1",
-        "password": "password1"
+        "password": "password1",
     },
     {
         "email": "artist2@example.com",

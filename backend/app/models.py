@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(150), unique=True, nullable=False)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
+    session_token = db.Column(db.String(150), unique=True)
     liked_songs = db.relationship('Song', secondary=liked_songs, lazy='subquery',
                                   backref=db.backref('liked_by', lazy=True))
     

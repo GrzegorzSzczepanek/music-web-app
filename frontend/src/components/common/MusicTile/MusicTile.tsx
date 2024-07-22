@@ -4,6 +4,7 @@ import { faPlay, faEllipsisH, faHeart } from '@fortawesome/free-solid-svg-icons'
 import './MusicTile.css';
 import { likeSong } from '../../../services/api';
 import PopUpMenu from '../OptionPopup/OptionPopup';
+import { Session } from 'inspector';
 
 interface MusicTileProps {
   song: {
@@ -25,12 +26,13 @@ const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong }) => {
     setCurrentSong(song);
   };
 
+
   const handleFavorite = async () => {
     try {
-      console.log('song', song);
-      const response = await likeSong(song.id);
+      await likeSong(song.id);
+      // console.log('Song liked successfully!');
     } catch (error) {
-      console.error("Error fetching current user:", error);
+      console.error('Error performing user action:', error);
     }
   };
 

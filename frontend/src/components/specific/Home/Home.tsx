@@ -13,7 +13,9 @@ interface Song {
   genre: string;
   artist_id: number;
   url: string;
+  id: number;
 }
+
 
 interface HomeProps {
   searchResults: Song[];

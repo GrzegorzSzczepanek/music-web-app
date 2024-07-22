@@ -34,7 +34,7 @@ const SignUp: React.FC = () => {
 
       if (response.status === 201) {
         setMessage('Account created!');
-        navigate('/');
+        navigate('/login');
         // Redirect to home page or handle sign-up success
       } else {
         setMessage(data.message);

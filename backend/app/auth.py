@@ -1,8 +1,6 @@
-# backend/app/auth.py
-
 from flask import Blueprint, request, jsonify, make_response
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from .models import User, Song
 from . import db
 
@@ -16,19 +14,15 @@ def login():
 
     user = User.query.filter_by(email=email).first()
     if user and check_password_hash(user.password, password):
-        login_user(user, remember=True)
-        response = make_response(jsonify({'success': True, 'message': 'Logged in successfully!'}), 200)
-        response.set_cookie('session', 'your_session_token', httponly=True, secure=True)  # Secure and HttpOnly cookie
-        return response
+        access_token = create_access_token(identity=user.id)
+        return jsonify({'success': True, 'access_token': access_token}), 200
     return jsonify({'success': False, 'message': 'Invalid email or password.'}), 401
 
 @auth.route('/logout', methods=['POST'])
-@login_required
+@jwt_required()
 def logout():
-    logout_user()
-    response = make_response(jsonify({'success': True, 'message': 'Logged out successfully!'}), 200)
-    response.set_cookie('session', '', expires=0)  # Clear the cookie
-    return response
+    # JWTs don't need server-side invalidation
+    return jsonify({'success': True, 'message': 'Logged out successfully!'}), 200
 
 @auth.route('/sign-up', methods=['POST'])
 def sign_up():
@@ -52,5 +46,5 @@ def sign_up():
         new_user = User(email=email, username=username, password=generate_password_hash(password1, method='pbkdf2:sha256'))
         db.session.add(new_user)
         db.session.commit()
-        login_user(new_user, remember=True)
-        return jsonify({'success': True, 'message': 'Account created!'}), 201
+        access_token = create_access_token(identity=new_user.id)
+        return jsonify({'success': True, 'access_token': access_token}), 201

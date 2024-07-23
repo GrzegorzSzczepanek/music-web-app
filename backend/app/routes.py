@@ -51,26 +51,17 @@ def get_new_releases():
 @main.route('/api/like_song', methods=['POST'])
 @jwt_required()
 def like_song():
-    data = request.get_json()
-    print(f"Received data: {data}")
-    song_id = data.get('song_id')
     user_id = get_jwt_identity()
-
-    print(f"Received song_id: {song_id}, user_id: {user_id}")
-
-    if not song_id or not user_id:
-        return jsonify({'success': False, 'message': 'Song ID or user ID not provided.'}), 400
+    print(user_id)
+    song_id = request.json.get('song_id')
 
     user = User.query.get(user_id)
-    if not user:
-        return jsonify({'success': False, 'message': 'Invalid user ID.'}), 401
-
     song = Song.query.get(song_id)
-    if not song:
-        return jsonify({'success': False, 'message': 'Song not found.'}), 404
 
-    if song not in user.liked_songs:
-        user.liked_songs.append(song)
-        db.session.commit()
+    if not user or not song:
+        return jsonify({"error": "User or song not found"}), 404
 
-    return jsonify({'success': True, 'message': 'Song liked successfully!'}), 200
+    user.liked_songs.append(song)
+    db.session.commit()
+
+    return jsonify({"message": "Song liked successfully"}), 200

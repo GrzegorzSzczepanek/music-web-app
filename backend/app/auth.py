@@ -18,11 +18,7 @@ def login():
         return jsonify({'success': True, 'access_token': access_token}), 200
     return jsonify({'success': False, 'message': 'Invalid email or password.'}), 401
 
-@auth.route('/logout', methods=['POST'])
-@jwt_required()
-def logout():
-    # JWTs don't need server-side invalidation
-    return jsonify({'success': True, 'message': 'Logged out successfully!'}), 200
+
 
 @auth.route('/sign-up', methods=['POST'])
 def sign_up():
@@ -48,3 +44,7 @@ def sign_up():
         db.session.commit()
         access_token = create_access_token(identity=new_user.id)
         return jsonify({'success': True, 'access_token': access_token}), 201
+@auth.route('/logout', methods=['POST'])
+@jwt_required()
+def logout():
+    return jsonify({'success': True, 'message': 'Logged out successfully!'}), 200

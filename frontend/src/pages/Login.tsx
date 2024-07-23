@@ -30,8 +30,10 @@ const Login = () => {
                 body: JSON.stringify({ email, password }),
             });
             const data = await response.json();
+            
             if (response.status === 200) {
-                login(data.token);
+                console.log(data.access_token);
+                login(data.access_token);
                 setMessage('Login successful');
                 navigate('/');
             } else {

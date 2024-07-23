@@ -29,6 +29,8 @@ const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong }) => {
 
   const handleFavorite = async () => {
     try {
+      const token = localStorage.getItem('token');
+      console.log('Token:', token);
       await likeSong(song.id);
       // console.log('Song liked successfully!');
     } catch (error) {

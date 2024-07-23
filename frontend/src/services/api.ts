@@ -1,3 +1,5 @@
+import { useAuth } from '../AuthProvider';
+
 const API_URL = 'http://localhost:5000/api';
 
 export const fetchSongs = async () => {
@@ -11,16 +13,20 @@ export const fetchNewReleases = async () => {
 }
 
 export const likeSong = async (songId: number) => {
-  const token = localStorage.getItem('access_token');
-  console.log('token:', token);
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('No token found');
+    return;
+  }
+
   try {
     const response = await fetch(`${API_URL}/like_song`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Include the JWT token
+        'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ song_id: songId }),
+      body: JSON.stringify({ song_id: songId })
     });
 
     if (!response.ok) {
@@ -28,14 +34,9 @@ export const likeSong = async (songId: number) => {
     }
 
     const data = await response.json();
-
-    if (data.success) {
-      console.log('Song liked successfully!');
-    } else {
-      console.error('Failed to like song:', data.message);
-    }
+    console.log(data.message);
   } catch (error) {
-    console.error('Error liking song:', error);
+    console.error('There was an error liking the song!', error);
   }
 };
 

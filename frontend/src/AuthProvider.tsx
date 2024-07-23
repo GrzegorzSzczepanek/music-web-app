@@ -36,19 +36,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const logout = async () => {
         try {
-            // const response = await fetch('http://127.0.0.1:5000/logout', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': `Bearer ${localStorage.getItem('token')}`
-            //     },
-            // });
-            // const data = await response.json();
-            // if (data.success) {
-            //     localStorage.removeItem('token');
-            //     setIsLoggedIn(false);
-            //     setMessage('Logged out successfully');
-            // }
+
             localStorage.removeItem('token');
             setIsLoggedIn(false);
             setMessage('Logged out successfully');

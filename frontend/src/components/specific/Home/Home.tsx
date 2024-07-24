@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import MusicTile from '../../common/MusicTile/MusicTile';
 import styles from './Home.module.css';
-import { fetchNewReleases } from '../../../services/api';
+import { fetchNewReleases, fetchLikedSongs } from '../../../services/api';
 import NewReleases from '../NewReleases/NewReleases';
 
 interface Song {
@@ -29,7 +29,18 @@ interface NewReleasesProps {
 
 
 const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSong }) => {
+  const [likedSongs, setLikedSongs] = React.useState<number[]>([]);
 
+  const updateLikedSongs = async () => {
+    const likedSongsData = await fetchLikedSongs();
+    console.log('Liked songs:', likedSongsData);
+    // setLikedSongs(likedSongsData);
+    return;
+  };
+
+  useEffect(() => {
+    updateLikedSongs();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -39,6 +50,8 @@ const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSong }) => {
             <MusicTile
               song={song}
               setCurrentSong={setCurrentSong}
+              isLiked={false}
+              updateLikedSongs={updateLikedSongs}
             />
           ))
         ) : (

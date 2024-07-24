@@ -25,6 +25,7 @@ def get_music():
         return jsonify(songs_list)
     except Exception as e:
         return jsonify({"error": "Internal Server Error"}), 500
+    
 
 @main.route('/api/new-releases', methods=['GET'])
 def get_new_releases():
@@ -61,7 +62,29 @@ def like_song():
     if not user or not song:
         return jsonify({"error": "User or song not found"}), 404
 
-    user.liked_songs.append(song)
+    if song in user.liked_songs:
+        user.liked_songs.remove(song)
+    else:
+        user.liked_songs.append(song)
+
     db.session.commit()
 
-    return jsonify({"message": "Song liked successfully"}), 200
+    return jsonify({"message": "Song liked/unliked successfully"}), 200
+
+
+@main.route('/api/liked_songs', methods=['GET'])
+@jwt_required()
+def liked_songs():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    
+    songs = user.liked_songs
+    songs_list = [
+        {
+            'id': songs.song.id,
+        }
+        for song in songs
+    ]
+    return jsonify(songs_list)

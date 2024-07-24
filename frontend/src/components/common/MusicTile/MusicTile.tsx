@@ -17,13 +17,17 @@ interface MusicTileProps {
     id: number;
   };
   setCurrentSong: any;
+  isLiked: boolean;
+  updateLikedSongs: () => void;
 }
 
-const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong }) => {
+const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong, updateLikedSongs }) => {
   const [showPopup, setShowPopup] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const playSong = () => {
     setCurrentSong(song);
+    // updateLikedSongs();
   };
 
 
@@ -56,7 +60,7 @@ const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong }) => {
             </button>
             {showPopup && <PopUpMenu />}
             <button id="favorite" onClick={handleFavorite} className="song-option-button hover-show">
-              <FontAwesomeIcon icon={faHeart} />
+              <FontAwesomeIcon icon={faHeart} color={isLiked ? 'green' : 'red'} />
             </button>
           </div>
         </div>

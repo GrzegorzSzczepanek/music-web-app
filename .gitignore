@@ -28,6 +28,7 @@ yarn-error.log*
 
 # Virtual environment
 /venv
+backend/venv
 
 # Python cache
 __pycache__

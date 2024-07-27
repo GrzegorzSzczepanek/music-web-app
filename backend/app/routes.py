@@ -53,7 +53,6 @@ def get_new_releases():
 @jwt_required()
 def like_song():
     user_id = get_jwt_identity()
-    print(user_id)
     song_id = request.json.get('song_id')
 
     user = User.query.get(user_id)
@@ -72,7 +71,7 @@ def like_song():
     return jsonify({"message": "Song liked/unliked successfully"}), 200
 
 
-@main.route('/api/liked_songs', methods=['GET'])
+@main.route('/api/liked_songs', methods=['POST'])
 @jwt_required()
 def liked_songs():
     user_id = get_jwt_identity()
@@ -83,8 +82,18 @@ def liked_songs():
     songs = user.liked_songs
     songs_list = [
         {
-            'id': songs.song.id,
+            'id': song.id,  # Assuming song has an id attribute
         }
         for song in songs
     ]
     return jsonify(songs_list)
+
+@main.route('/api/user', methods=['GET'])
+@jwt_required()
+def get_user():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    
+    return jsonify({"username": user.username, "email": user.email, "id": user.id}), 200

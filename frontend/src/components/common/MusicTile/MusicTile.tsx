@@ -18,10 +18,10 @@ interface MusicTileProps {
   };
   setCurrentSong: any;
   isLiked: boolean;
-  updateLikedSongs: () => void;
+  // updateLikedSongs: () => void;
 }
 
-const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong, updateLikedSongs }) => {
+const MusicTile: React.FC<MusicTileProps> = ({ song, setCurrentSong }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 

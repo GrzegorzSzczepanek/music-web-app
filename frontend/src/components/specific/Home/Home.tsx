@@ -38,9 +38,6 @@ const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSong }) => {
     return;
   };
 
-  useEffect(() => {
-    updateLikedSongs();
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -51,7 +48,7 @@ const Home: React.FC<HomeProps> = ({ searchResults, setCurrentSong }) => {
               song={song}
               setCurrentSong={setCurrentSong}
               isLiked={false}
-              updateLikedSongs={updateLikedSongs}
+              // updateLikedSongs={updateLikedSongs}
             />
           ))
         ) : (

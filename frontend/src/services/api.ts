@@ -1,3 +1,5 @@
+import { i } from "vite/dist/node/types.d-aGj9QkWt";
+
 const API_URL = 'http://localhost:5000/api';
 
 export const fetchSongs = async () => {
@@ -64,3 +66,30 @@ export const fetchLikedSongs = async () => {
     console.error('There was an error liking the song!', error);
   }
 };
+
+
+export const fetchUserData = async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('No token found');
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('There was an error fetching user data', error);
+  }
+};
+

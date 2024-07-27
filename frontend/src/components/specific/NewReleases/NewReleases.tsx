@@ -38,7 +38,7 @@ const NewReleases: React.FC<NewReleasesProps> = ({ setCurrentSong }) => {
       <div>
         {newReleases.map((song, index) => (
             <div>
-                <MusicTile key={index} song={song} setCurrentSong={setCurrentSong} />
+                <MusicTile song={song} setCurrentSong={setCurrentSong} isLiked={false}  />
             </div>
         ))}
       </div>
